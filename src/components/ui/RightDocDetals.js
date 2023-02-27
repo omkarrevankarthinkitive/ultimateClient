@@ -12,18 +12,16 @@ function RightDocDetals() {
 
  
 
-    let justData={
-        "_id":newLocation
-    }
+   
     useEffect(()=>{
-        getdocByID(justData)
+        getdocByID()
     },[])
 
 let statusCode
 
 let token=localStorage.getItem("token")
     const getdocByID = async (data) => {
-        await fetch(`http://localhost:4222/api/doctor/doctordetail/doctorsPage/${localStorage.getItem("id")}`, {
+        await fetch(`http://localhost:4222/api/doctor/doctordetail/doctorsPage?id=${newLocation}`, {
           method: "POST",
           
           headers: {

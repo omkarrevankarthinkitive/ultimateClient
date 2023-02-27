@@ -20,20 +20,18 @@ function DashBorad() {
   }
 
   useEffect(() => {
-    const named = {
-      searchField: dname,
-    };
-    searchDoctors(named);
+    
+    searchDoctors();
   }, [dname]);
   let statusCode;
 
   const token = localStorage.getItem("token");
-  const searchDoctors = async (data) => {
+  const searchDoctors = async () => {
     await fetch(
-      "http://localhost:4222/api/doctor/doctordetail/getdoctorsname",
+      'http://localhost:4222/api/doctor/doctordetail/getdoctorsname?searchField='+dname,
       {
         method: "POST",
-        body: JSON.stringify(data),
+        
         headers: {
           "Content-Type": "application/json",
           Authorization: token,
