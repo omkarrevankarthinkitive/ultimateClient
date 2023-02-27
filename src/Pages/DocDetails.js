@@ -39,15 +39,7 @@ function DocDetails() {
         return res.json();
       })
 
-      .then((res) => {
-        if (statusCode === 400) {
-          console.log(res + "wwwwwwwwww");
-        }
-        if (statusCode === 200) {
-          console.log("data: ", res);
-          setDataAll(res);
-        }
-      });
+     
   };
 
   return (

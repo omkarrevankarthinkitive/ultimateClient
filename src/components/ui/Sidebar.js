@@ -13,7 +13,6 @@ import module from "../../CSS/Sidebar.module.css"
 
 function SideBar({newLocation}) {
   const { collapseSidebar } = useProSidebar();
-  console.log(newLocation)
 
 
   const idParam=localStorage.getItem("id")

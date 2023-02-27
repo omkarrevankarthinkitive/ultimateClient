@@ -9,26 +9,26 @@ import fetch from "node-fetch";
 
 import module from "../CSS/Dashboard.module.css";
 
-function DashBorad() {
-  const navigate = useNavigate();
+function DashBoard() {
+  const nevigate = useNavigate();
 
-  const [dname, setDname] = useState("");
+  const [doctorName, setDoctorName] = useState("");
   const [dataAll, setDataAll] = useState([]);
 
   function handleDoctorChange(e) {
-    setDname(e.target.value);
+    setDoctorName(e.target.value);
   }
 
   useEffect(() => {
     
     searchDoctors();
-  }, [dname]);
+  }, [doctorName]);
   let statusCode;
 
   const token = localStorage.getItem("token");
   const searchDoctors = async () => {
     await fetch(
-      'http://localhost:4222/api/doctor/doctordetail/getdoctorsname?searchField='+dname,
+      'http://localhost:4222/api/doctor/doctordetail/getdoctorsname?searchField='+doctorName,
       {
         method: "POST",
         
@@ -43,31 +43,22 @@ function DashBorad() {
         return res.json();
       })
 
-      .then((res) => {
-        if (statusCode === 400) {
-          console.log(res + "wwwwwwwwww");
-        }
-        if (statusCode === 200) {
-          console.log("data: ", res);
-
-          setDataAll(res);
-        }
-      });
+     
   };
 
   function handleLogOut() {
     localStorage.clear();
-    navigate("/");
+    nevigate("/");
   }
 
   function doctorDetail(e) {
     const id = e;
 
-    navigate(`/api/doctordetails/${id}`);
+    nevigate(`/api/doctordetails/${id}`);
   }
 
   function toAddDoctor() {
-    navigate(`/api/addoctors`);
+    nevigate(`/api/addoctors`);
   }
 
   return (
@@ -142,8 +133,7 @@ function DashBorad() {
         </Box>
         <div className={module.divSmalls}>
           {
-            // border:"2px solid #EAE0DA"
-            dname &&
+            doctorName &&
               dataAll &&
               dataAll.map((item) => {
                 return (
@@ -170,16 +160,16 @@ function DashBorad() {
                     onClick={() => doctorDetail(item._id)}
                     endIcon={<ArrowForwardIosIcon />}
                   >
-                    {" "}
+                    
                     <span className={module.buttonFlex}>
-                      <Avatar sx={{ marginRight: "20px" }} src={item.img} />{" "}
+                      <Avatar sx={{ marginRight: "20px" }} src={item.img} />
                       {item.doctorName}
-                    </span>{" "}
+                    </span>
                   </Button>
                 );
               })
           }
-          {dname && (
+          {doctorName && (
             <Button
               onClick={toAddDoctor}
               sx={{
@@ -203,7 +193,7 @@ function DashBorad() {
               }}
               endIcon={<ArrowForwardIosIcon />}
             >
-              <span className={module.buttonFlex}>ADD NEW DOCTOR</span>{" "}
+              <span className={module.buttonFlex}>ADD NEW DOCTOR</span>
             </Button>
           )}
 
@@ -214,4 +204,4 @@ function DashBorad() {
   );
 }
 
-export default DashBorad;
+export default DashBoard;

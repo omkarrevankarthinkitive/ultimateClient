@@ -29,14 +29,7 @@ export default function ViewAppointment() {
         return res.json();
       })
 
-      .then((res) => {
-        if (statusCode === 400) {
-          console.log("error");
-        }
-        if (statusCode === 200) {
-          setInitial(res);
-        }
-      });
+ 
   };
 
   function changeApt(e) {
@@ -57,9 +50,7 @@ export default function ViewAppointment() {
       })
 
       .then((res) => {
-        if (statusCode === 400) {
-          console.log("error");
-        }
+     
         if (statusCode === 200) {
           setInitial(res);
         }

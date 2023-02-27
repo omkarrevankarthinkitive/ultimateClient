@@ -72,14 +72,9 @@ function AddDoctors() {
         return res.json();
       })
       .then((res) => {
-        let statusCode = res.statusCode;
+        const statusCode = res.statusCode;
 
-        console.log(res.statusCode);
-        if (statusCode === 400) {
-          console.log(res + "wwwwwwwwww");
-        }
-        if (statusCode === 200) {
-        }
+     
       });
   };
 

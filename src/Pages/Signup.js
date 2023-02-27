@@ -28,7 +28,6 @@ function Signup() {
       phoneNumber: user.phoneNumber,
       role: user.role,
     };
-    console.log(SignUpCredential);
     signup(SignUpCredential);
   };
   const handleChange = (e) => {
@@ -49,11 +48,8 @@ function Signup() {
         return res.json();
       })
       .then((res) => {
-        if (statusCode === 400) {
-          console.log(res + "wwwwwwwwww");
-        }
+     
         if (statusCode === 201) {
-          console.log("data: ", res);
 
           setTimeout(() => {
             localStorage.setItem("islogin", true);
@@ -176,7 +172,7 @@ function Signup() {
                 Sign up
               </Button>
               <Typography sx={{ color: "black" }}>
-                Already have an account?{" "}
+                Already have an account?
                 <Link to="/api/login" className={module.orLogin}>
                   Login
                 </Link>

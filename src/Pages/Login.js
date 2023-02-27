@@ -21,7 +21,6 @@ function Login() {
       email: emailer,
       password: password,
     };
-    console.log(loginCredential);
     login(loginCredential);
   };
   let statusCode;
@@ -40,11 +39,8 @@ function Login() {
       })
 
       .then((res) => {
-        if (statusCode === 400) {
-          console.log(res + "wwwwwwwwww");
-        }
+       
         if (statusCode === 201) {
-          console.log("data: ", res);
 
           localStorage.setItem("token", res.token);
 
@@ -140,7 +136,7 @@ function Login() {
                 Login
               </Button>
               <Typography sx={{ color: "black" }}>
-                Don't have an account?{" "}
+                Don't have an account?
                 <Link to="/api/users" className={module.signupButton}>
                   Sign up for free
                 </Link>

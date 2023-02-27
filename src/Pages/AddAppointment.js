@@ -50,7 +50,6 @@ export const HorizontalNonLinearStepper = () => {
     return Object.keys(completed).length;
   };
 
-  console.log("Here");
 
   const isLastStep = () => {
     return activeStep === totalSteps() - 1;
@@ -102,14 +101,7 @@ export const HorizontalNonLinearStepper = () => {
         return res.json();
       })
 
-      .then((res) => {
-        if (statusCode === 400) {
-          console.log(res + "wwwwwwwwww");
-        }
-        if (statusCode === 201) {
-          console.log("data: ", res);
-        }
-      });
+     
   };
 
   const SubmitHandler = (event) => {

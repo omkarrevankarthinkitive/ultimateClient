@@ -4,7 +4,7 @@ import "./App.css";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
-import DashBorad from "./Pages/DashBorad";
+import DashBoard from "./Pages/DashBoard";
 //importing react router dom
 import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 import ProtectedRoutes from "./shared/ProtectedRoutes";
@@ -18,6 +18,9 @@ import ViewAppointment from "./Pages/ViewAppointment";
 import { ProSidebarProvider } from "react-pro-sidebar";
 import AddDoctors from "./Pages/AddDoctors";
 
+
+  
+
 function App() {
   let { id } = useParams();
   return (
@@ -28,7 +31,7 @@ function App() {
           <Route path="/api/login" element={<Login />} />
           <Route path="/api/users" element={<Signup />} />
           <Route element={<ProtectedRoutes />}>
-            <Route path="/api/dashboard" element={<DashBorad />} />
+            <Route path="/api/dashboard" element={<DashBoard />} />
           </Route>
 
           <Route path="/api/doctordetails" element={<DocDetails />}>
