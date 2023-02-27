@@ -43,10 +43,9 @@ export default function ViewAppointment() {
     setField(e.target.value);
   }
 
-  const appointmentSearch = async (data) => {
-    await fetch("http://localhost:4222/api/appointment/search", {
-      method: "POST",
-      body: JSON.stringify(data),
+  const appointmentSearch = async () => {
+    await fetch(`http://localhost:4222/api/appointment?search=${field}`, {
+      method: "GET",
 
       headers: {
         "Content-Type": "application/json",
@@ -68,10 +67,8 @@ export default function ViewAppointment() {
   };
 
   useEffect(() => {
-    const named = {
-      searchField: field,
-    };
-    field.length > 0 ? appointmentSearch(named) : getAppointment();
+    
+    field.length >> 0 ? appointmentSearch() : getAppointment();
   }, [field]);
 
   return (
@@ -161,8 +158,8 @@ export default function ViewAppointment() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {initial &&
-            initial.map((row) => (
+          {initial ?
+            (initial.map((row) => (
               <TableRow
                 key={row._id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -179,7 +176,7 @@ export default function ViewAppointment() {
                 <TableCell align="left">{row.diagnosis}</TableCell>
                 <TableCell align="left">{row.reason}</TableCell>
               </TableRow>
-            ))}
+            ))):[]}
         </TableBody>
       </Table>
     </TableContainer>
