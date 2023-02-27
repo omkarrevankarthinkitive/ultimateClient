@@ -1,0 +1,29 @@
+.loginPageContainer {
+  padding: 83px 75px;
+  background-image: url("https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.titleLogo {
+  text-decoration: none;
+  color: #08090b;
+}
+
+.inputStyle {
+  width: 500px;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid black;
+  background-color: transparent;
+}
+
+.signupButton {
+  text-decoration: none;
+  color: #08090b;
+  font-weight: bold;
+}
+
+.imgHeight {
+  height: 90%;
+}

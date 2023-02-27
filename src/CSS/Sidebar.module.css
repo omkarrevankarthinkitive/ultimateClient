@@ -1,0 +1,24 @@
+.sidebarMenuContainer {
+  font-weight: bold;
+  height: 100vh;
+  color: #003450;
+}
+
+.sidearmenuItemContainer {
+  text-align: right;
+}
+
+.menuItemContainer {
+  display: flex;
+}
+
+.menuItemContainerHead {
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.menuItemListItem {
+  color: #454949;
+  text-decoration: none;
+}
