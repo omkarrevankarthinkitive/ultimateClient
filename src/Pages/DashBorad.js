@@ -205,7 +205,6 @@ function DashBorad() {
               }}
               endIcon={<ArrowForwardIosIcon />}
             >
-              {" "}
               <span className={module.buttonFlex}>ADD NEW DOCTOR</span>{" "}
             </Button>
           )}

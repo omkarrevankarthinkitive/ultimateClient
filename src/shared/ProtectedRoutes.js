@@ -12,7 +12,6 @@ function calling(){
 let newToken=localStorage.getItem("token")
 
 
-console.log(newToken,"thisisis")
 
 
 let finalVal=false

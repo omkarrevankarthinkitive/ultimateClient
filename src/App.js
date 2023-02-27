@@ -22,7 +22,6 @@ function App() {
   let { id } = useParams();
   return (
     <ProSidebarProvider>
-      {" "}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

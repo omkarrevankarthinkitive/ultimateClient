@@ -1,7 +1,4 @@
 
-import { Box,Button } from '@mui/material'
-import {useNavigate,Link} from "react-router-dom"
-import AddAppointment from '../../Pages/AddAppointment'
 import { useParams } from 'react-router-dom'
 import { useState,useEffect } from 'react'
 
@@ -9,7 +6,6 @@ import { useState,useEffect } from 'react'
 
 
 function RightDocDetals() {
-    const navigate=useNavigate()
     const [allData,setDataAll]=useState([])
     const location=useParams()
   const newLocation=  location.id
@@ -55,11 +51,8 @@ let token=localStorage.getItem("token")
           });
       };
 
-    const nevigate=useNavigate()
 
-    function bookmyaptFunc(){
-        nevigate("/api/apt")
-    }
+
     const params=useParams()
 
     if(params.id){

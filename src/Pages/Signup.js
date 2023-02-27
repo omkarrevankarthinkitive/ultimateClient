@@ -35,15 +35,13 @@ function Signup() {
     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
   let statusCode;
-  let token = localStorage.getItem("token");
-  console.log(token, "whythis");
+  // let token = localStorage.getItem("token");
   const signup = async (data) => {
     await fetch("http://localhost:4222/api/users", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
       },
     })
       .then((res) => {

@@ -40,9 +40,7 @@ function AddDoctors() {
     borderRadius: "20px",
   };
 
-  const buttonStyle = {
-    margin: "16px",
-  };
+
   function handleSubmit(e) {
     const dataSubmit = {
       doctorName: user.doctorName,
