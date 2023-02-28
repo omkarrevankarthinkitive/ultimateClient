@@ -1,0 +1,36 @@
+.mainConatinerDash {
+  background-image: url("https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  padding: 0px 150px;
+}
+
+.inputSearchIcon {
+  height: 4rem;
+  width: 40rem;
+  margin-top: 3rem;
+  font-size: 2rem;
+  padding: 1rem;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  background: transparent;
+  backdrop-filter: saturate(200%) blur(10px);
+}
+
+.divSmalls {
+  width: 40rem;
+  display: flex;
+  flex-direction: column;
+  padding-left: 25px;
+}
+
+.titleLogo {
+  text-decoration: none;
+  color: #08090b;
+}
+
+.buttonFlex {
+  display: flex;
+}
