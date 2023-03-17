@@ -66,13 +66,12 @@ export default function ViewAppointment() {
     <TableContainer
       data-testid="viewApt-1"
       sx={{
-        background: "blur(10px)",
-        backdropFilter: "saturate(130%) blur(10px)",
+        background: "#FFFDF1",
         boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
         padding: "3rem",
         height: "70vh",
         maxWidth: "50vw",
-        borderRadius: "35px",
+        border:"3px solid #003450",
         display: "flex",
         alignItems: "start",
         flexDirection: "column",

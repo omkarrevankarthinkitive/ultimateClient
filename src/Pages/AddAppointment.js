@@ -133,7 +133,7 @@ export const HorizontalNonLinearStepper = () => {
   let statusCode;
 
   return (
-    <Box data-testid="addApt-1" className={module.topMainContainer}>
+    <Box sx={{border:"3px solid #003450"}} data-testid="addApt-1" className={module.topMainContainer}>
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
@@ -165,7 +165,7 @@ export const HorizontalNonLinearStepper = () => {
           <>
             {activeStep + 1 === 1 ? (
               <>
-                <Box sx={{ margin: "1rem" }}>
+                <Box sx={{ margin: "1rem",color:"#4B6B7A" }}>
                   <h3>Appointment Reason</h3>
                   <input
                     value={user?.reason}
@@ -176,7 +176,7 @@ export const HorizontalNonLinearStepper = () => {
                   />
                 </Box>
 
-                <Box sx={{ margin: "1rem" }}>
+                <Box sx={{ margin: "1rem",color:"#4B6B7A" }}>
                   <h3>Location</h3>
                   <Select
                     labelId="demo-select-small"
@@ -195,7 +195,7 @@ export const HorizontalNonLinearStepper = () => {
                     <MenuItem value="Bangalore">Bangalore</MenuItem>
                   </Select>
                 </Box>
-                <Box sx={{ margin: "1rem" }}>
+                <Box sx={{ margin: "1rem",color:"#4B6B7A" }}>
                   <h3>Room</h3>
                   <Select
                     labelId="demo-select-small"
@@ -214,7 +214,7 @@ export const HorizontalNonLinearStepper = () => {
                     <MenuItem value={3}>3</MenuItem>
                   </Select>
                 </Box>
-                <Box sx={{ margin: "1rem" }}>
+                <Box sx={{ margin: "1rem",color:"#4B6B7A" }}>
                   <h3>Diagnosis</h3>
                   <Select
                     labelId="demo-select-small"
@@ -237,8 +237,8 @@ export const HorizontalNonLinearStepper = () => {
               </>
             ) : activeStep + 1 === 2 ? (
               <>
-                <h4 className="patientDetailTitle">Patient Details</h4>
-                <Box sx={{ display: "flex", gap: "20px", margin: "1rem" }}>
+                <h4 className={module.patientDetailTitle}>Patient Details</h4>
+                <Box sx={{ display: "flex", gap: "20px", margin: "1rem" ,color:"#4E6A73",fontWeight:"bold"}}>
                   <Box className={module.flexComp}>
                     <p>First Name</p>
                     <input
@@ -263,6 +263,7 @@ export const HorizontalNonLinearStepper = () => {
                     display: "flex",
                     margin: "1rem",
                     flexDirection: "column",
+                    color:"#4E6A73",fontWeight:"bold"
                   }}
                 >
                   <p className={module.blockComp}>Date of Birth</p>
@@ -275,7 +276,7 @@ export const HorizontalNonLinearStepper = () => {
                   />
                 </Box>
 
-                <Box sx={{ display: "flex", gap: "20px", margin: "1rem" }}>
+                <Box sx={{ display: "flex", gap: "20px", margin: "1rem" ,color:"#4E6A73",fontWeight:"bold"}}>
                   <Box className={module.flexComp}>
                     <p>Gender</p>
                     <Select
@@ -289,6 +290,7 @@ export const HorizontalNonLinearStepper = () => {
                         width: "100%",
                         backgroundColor: "#eef0f1",
                         height: "40px",
+                        
                       }}
                     >
                       <MenuItem value="Male">Male</MenuItem>
@@ -307,7 +309,7 @@ export const HorizontalNonLinearStepper = () => {
                   </Box>
                 </Box>
 
-                <Box sx={{ margin: "1rem" }}>
+                <Box sx={{ margin: "1rem",color:"#4E6A73",fontWeight:"bold" }}>
                   <p>Home Phone</p>
                   <input
                     value={user?.homePhone}
@@ -322,6 +324,8 @@ export const HorizontalNonLinearStepper = () => {
                     display: "flex",
                     margin: "1rem",
                     flexDirection: "column",
+                    color:"#4E6A73",fontWeight:"bold"
+                    
                   }}
                 >
                   <p className={module.blockComp}>Email</p>
@@ -334,7 +338,7 @@ export const HorizontalNonLinearStepper = () => {
                   />
                 </Box>
 
-                <Box sx={{ margin: "1rem" }}>
+                <Box sx={{ margin: "1rem",color:"#4E6A73",fontWeight:"bold" }}>
                   <p>Address</p>
                   <input
                     value={user?.address}
@@ -344,7 +348,7 @@ export const HorizontalNonLinearStepper = () => {
                     className={module.inputStylelong}
                   />
                 </Box>
-                <Box sx={{ display: "flex", margin: "1rem", gap: "20px" }}>
+                <Box sx={{ display: "flex", margin: "1rem", gap: "20px" ,color:"#4E6A73",fontWeight:"bold"}}>
                   <input
                     value={user?.Province}
                     onChange={handleChange}
@@ -379,6 +383,7 @@ export const HorizontalNonLinearStepper = () => {
                     display: "flex",
                     margin: "1rem",
                     flexDirection: "column",
+                    color:"#4E6A73",fontWeight:"bold"
                   }}
                 >
                   <p className={module.blockComp}>Appointment Time</p>
@@ -394,6 +399,8 @@ export const HorizontalNonLinearStepper = () => {
                     display: "flex",
                     margin: "1rem",
                     flexDirection: "column",
+                    color:"#4E6A73",fontWeight:"bold"
+
                   }}
                 >
                   <p className={module.blockComp}>Appointment Day</p>

@@ -11,19 +11,33 @@ import { Link, useNavigate } from "react-router-dom";
 import module from "../CSS/Login.module.css";
 
 function Login() {
-  const [emailer, setEmailer] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+  const [errors, setErrors] = useState({});
+
   const navigate = useNavigate();
 
   const SubmitHandler = (event) => {
     event.preventDefault();
+    const validationErrors = validateInputs(user);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
     const loginCredential = {
-      email: emailer,
-      password: password,
+      email: user.email,
+      password: user.password,
     };
     login(loginCredential);
   };
   let statusCode;
+
+  function handleChange(e) {
+    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
+  }
 
   const login = async (data) => {
     await fetch("http://localhost:4222/api/users/login", {
@@ -39,9 +53,7 @@ function Login() {
       })
 
       .then((res) => {
-       
         if (statusCode === 201) {
-
           localStorage.setItem("token", res.token);
 
           localStorage.setItem("user_id", res._id);
@@ -53,6 +65,24 @@ function Login() {
           }, 2000);
         }
       });
+  };
+
+  const validateInputs = (inputs) => {
+    let errors = {};
+
+    if (!inputs.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputs.email)) {
+      errors.email = "Invalid email address";
+    }
+    if (
+      !inputs.password ||
+      !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}/.test(
+        inputs.password
+      )
+    ) {
+      errors.password = "Password is cannot be empty";
+    }
+
+    return errors;
   };
 
   return (
@@ -113,18 +143,24 @@ function Login() {
             >
               <input
                 className={module.inputStyle}
-                value={emailer}
+                value={user.email}
                 type="text"
                 placeholder="E-Mail"
-                onChange={(e) => setEmailer(e.target.value)}
+                onChange={handleChange}
+                name="email"
               />
+              <Typography sx={{ color: "red" }}>{errors.email}</Typography>
+
               <input
                 className={module.inputStyle}
-                value={password}
+                value={user.password}
                 type="password"
-                placeholder="Password"
-                onChange={(e) => setPassword(e.target.value)}
+                placeholder="password"
+                onChange={handleChange}
+                name="password"
               />
+              <Typography sx={{ color: "red" }}>{errors.password}</Typography>
+
               <Button
                 variant="contained"
                 sx={{
@@ -158,6 +194,8 @@ function Login() {
             alt="This is an home Image"
             className={module.imgHeight}
           />
+
+          
         </Box>
       </Box>
     </div>

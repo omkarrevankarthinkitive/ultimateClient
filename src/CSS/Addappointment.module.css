@@ -1,10 +1,10 @@
 .topMainContainer {
   width: 80%;
-  background: blur(18px);
-  backdrop-filter: saturate(130%) blur(10px);
+  background:#fffdf1;
   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
   padding: 3rem;
-  border-radius: 35px;
+  border:"2px solid #003450";
+  color:"black"
 }
 
 .inputStylelong {
@@ -33,9 +33,7 @@
 }
 
 .patientDetailTitle {
-  font-weight: bold;
-  color: black;
-  margin: 0.5rem 1rem;
+  color:"red"
 }
 
 .flexComp {
@@ -44,4 +42,6 @@
 
 .blockComp {
   display: block;
+  color:"black"
+
 }

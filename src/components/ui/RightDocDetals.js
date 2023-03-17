@@ -10,6 +10,8 @@ function RightDocDetals() {
     const location=useParams()
   const newLocation=  location.id
 
+  console.log(newLocation,"newddd")
+
  
 
    
@@ -22,7 +24,7 @@ let statusCode
 let token=localStorage.getItem("token")
     const getdocByID = async (data) => {
         await fetch(`http://localhost:4222/api/doctor/doctordetail/doctorsPage?id=${newLocation}`, {
-          method: "POST",
+          method: "GET",
           
           headers: {
             "Content-Type": "application/json",
@@ -32,6 +34,9 @@ let token=localStorage.getItem("token")
           .then((res) => {
             statusCode=res.status
             return res.json()})
+            .then(res=>{
+                setDataAll(res)
+            })
           
          
       };
@@ -45,7 +50,7 @@ let token=localStorage.getItem("token")
     }
 
   return (
-    <div className="mainDivRightDoc" >
+    <div className="mainDivRightDoc" style={{border:"3px solid #003450"}} >
          <section className="section about-section forBack" id="about" >
             <div className="container">
                 <div className="row align-items-center flex-row-reverse">

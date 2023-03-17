@@ -126,22 +126,22 @@ mark {
 }
 
 .forBack {
-  background: blur(10px);
-  backdrop-filter: saturate(130%) blur(10px);
+  background-color: #fffdf1;
+  color: #013553;
   box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
-  border-radius: 25px;
+  border: "2px solid black";
 }
 
 .mainDivRightDoc {
   display: flex;
   align-items: center;
   justify-content: center;
+  border: "5px solid ";
 }
 
 .rightDocImg {
   height: 350px;
   width: 350px;
-  border-radius: 25px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 

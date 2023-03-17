@@ -16,7 +16,6 @@
   outline: none;
   border-radius: 20px;
   background: transparent;
-  backdrop-filter: saturate(200%) blur(10px);
 }
 
 .divSmalls {

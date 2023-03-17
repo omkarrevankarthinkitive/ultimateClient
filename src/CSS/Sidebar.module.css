@@ -19,6 +19,14 @@
 }
 
 .menuItemListItem {
-  color: #454949;
+  color: #013354;
+  font-weight:"bold";
   text-decoration: none;
+}
+
+.activeMenuItemListItem{
+
+  text-decoration: none;
+  color:"green"
+  
 }

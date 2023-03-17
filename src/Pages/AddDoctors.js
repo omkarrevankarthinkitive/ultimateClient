@@ -1,9 +1,27 @@
 import React, { useState } from "react";
 
-import { TextField, Button, Typography, Card, Box } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Typography,
+  Card,
+  Box,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import fetch from "node-fetch";
 
+const workingDaysOptions = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
 function AddDoctors() {
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -15,6 +33,9 @@ function AddDoctors() {
     img: "",
     phoneNumber: "",
     aboutMyself: "",
+    workingTime: "",
+    slotDuration: "",
+    workingDays: [],
   });
 
   function handleChange(e) {
@@ -29,17 +50,15 @@ function AddDoctors() {
     width: "600px",
     margin: "0 auto",
     padding: "32px",
-    borderRadius: "25px",
-    background: "transparent",
-    backdropFilter: "saturate(130%) blur(30px)",
+    border: "3px solid #023655",
     boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
+    backgroundColor: "#FFFDF1",
   };
 
   const inputStyle = {
     margin: "8px",
     borderRadius: "20px",
   };
-
 
   function handleSubmit(e) {
     const dataSubmit = {
@@ -51,6 +70,9 @@ function AddDoctors() {
       img: user.img,
       phoneNumber: user.phoneNumber,
       aboutMyself: user.aboutMyself,
+      workingTime: user.workingTime,
+      SlotDuration: user.SlotDuration,
+      workingDays: user.workingDays,
     };
 
     postDoctored(dataSubmit);
@@ -73,11 +95,20 @@ function AddDoctors() {
       })
       .then((res) => {
         const statusCode = res.statusCode;
-
-     
       });
   };
 
+  const handleWorkingDaysChange = (event) => {
+    const selectedDays = event.target.value.filter(
+      (day) => !user.workingDays.includes(day)
+    );
+    setUser((prevState) => ({
+      ...prevState,
+      workingDays: [...prevState.workingDays, ...selectedDays],
+    }));
+  };
+
+  console.log(user.workingDays);
   return (
     <Box
       data-testid="addDoc-1"
@@ -164,6 +195,46 @@ function AddDoctors() {
           type="text"
           style={inputStyle}
         />
+        <TextField fullWidth label="Time Range" placeholder="hh:mm-hh:mm" />
+        <Box></Box>
+        <InputLabel>Select Slot</InputLabel>
+        <Select
+        label="Select Slots"
+          labelId="demo-select-small"
+           placeholder="time Slots"
+          id="demo-select-small"
+          value={user.slotDuration}
+          onChange={handleChange}
+          name="slotDuration"
+          sx={{
+            height: "40px",
+            width: "100%",
+            background:"transparent"
+          }}
+        >
+          <MenuItem value={15}>15</MenuItem>
+          <MenuItem value={30}>30</MenuItem>
+          <MenuItem value={45}>45</MenuItem>
+          <MenuItem value={60}>60</MenuItem>
+        </Select>
+        <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
+          <InputLabel id="working-days-label">Select working days:</InputLabel>
+          <Select
+            labelId="working-days-label"
+            id="working-days"
+            multiple
+            value={user.workingDays}
+            onChange={handleWorkingDaysChange}
+            renderValue={(selected) => selected.join(", ")}
+          >
+            {workingDaysOptions.map((day) => (
+              <MenuItem key={day} value={day}>
+                {day}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+
         <Button
           onClick={handleSubmit}
           fullWidth

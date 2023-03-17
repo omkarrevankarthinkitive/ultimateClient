@@ -1,4 +1,4 @@
-import { Button, Typography, Select, MenuItem } from "@mui/material";
+import { Button, Typography, Select, MenuItem, fabClasses } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,23 +15,33 @@ function Signup() {
     email: "",
     password: "",
     phoneNumber: "",
-    role: "",
-  });
+    
+  });               
+
+  const [errors, setErrors] = useState({});
+
+  
   const navigate = useNavigate();
 
   const SubmitHandler = (event) => {
     event.preventDefault();
+    const validationErrors = validateInputs(user);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
     const SignUpCredential = {
       name: user.name,
       email: user.email,
       password: user.password,
       phoneNumber: user.phoneNumber,
-      role: user.role,
+     
     };
     signup(SignUpCredential);
   };
   const handleChange = (e) => {
     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
   };
   let statusCode;
   // let token = localStorage.getItem("token");
@@ -59,6 +69,24 @@ function Signup() {
         }
       });
   };
+
+  const validateInputs = (inputs) => {
+    let errors = {};
+    if (inputs.name.length < 2 || inputs.name.length > 50) {
+      errors.name = "Name should be between 2 to 50 characters";
+    }
+    if (!inputs.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputs.email)) {
+      errors.email = "Invalid email address";
+    }
+    if (!inputs.password || !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}/.test(inputs.password)) {
+      errors.password = "Password should contain one small, big letters, symbols like @ and minimum of 8 characters";
+    }
+    if (inputs.phoneNumber.length !=10) {
+      errors.phoneNumber = "Number must be 10 numbers long";
+    }
+    return errors;
+  };
+
 
   return (
     <div data-testid="Signup-1" className={module.signupContainer}>
@@ -112,7 +140,7 @@ function Signup() {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "25px",
+                gap: "10px",
                 marginTop: "30px",
               }}
             >
@@ -123,6 +151,7 @@ function Signup() {
                 name="name"
                 onChange={handleChange}
               />
+              <Typography sx={{color:"red"}}>{errors.name}</Typography>
               <input
                 type="text"
                 className={module.inputStyle}
@@ -130,6 +159,8 @@ function Signup() {
                 name="email"
                 onChange={handleChange}
               />
+              <Typography sx={{color:"red"}}>{errors.email}</Typography>
+
               <input
                 type="password"
                 className={module.inputStyle}
@@ -137,6 +168,8 @@ function Signup() {
                 name="password"
                 onChange={handleChange}
               />
+              <Typography sx={{color:"red"}}>{errors.password}</Typography>
+
               <input
                 type="number"
                 className={module.inputStyle}
@@ -144,28 +177,20 @@ function Signup() {
                 name="phoneNumber"
                 onChange={handleChange}
               />
+              
+              <Typography sx={{color:"red"}}>{errors.phoneNumber}</Typography>
 
-              <Select
-                labelId="demo-select-small"
-                id="demo-select-small"
-                value={user.role}
-                label="Age"
-                onChange={handleChange}
-                name="role"
-                sx={{ border: "1px solid black" }}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="User">User</MenuItem>
-                <MenuItem value="Doctor">Doctor</MenuItem>
-              </Select>
+
+          
 
               <Button
                 variant="contained"
+                
+               
                 sx={{
-                  backgroundColor: "#08090B",
+                  backgroundColor: "black",
                   "&:hover": { backgroundColor: "black" },
+                
                 }}
                 onClick={SubmitHandler}
               >
@@ -201,3 +226,5 @@ function Signup() {
 }
 
 export default Signup;
+
+

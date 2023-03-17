@@ -24,9 +24,9 @@ function DocDetails() {
   let token = localStorage.getItem("token");
   const getdocByID = async (data) => {
     await fetch(
-      `http://localhost:4222/api/doctor/doctordetail/doctorsPage/${newLocation}`,
+      `http://localhost:4222/api/doctor/doctordetail/doctorsPage?id=${data._id}`,
       {
-        method: "POST",
+        method: "GET",
 
         headers: {
           "Content-Type": "application/json",
@@ -37,10 +37,19 @@ function DocDetails() {
       .then((res) => {
         statusCode = res.status;
         return res.json();
-      })
+      }).then(
+        (res)=>{
+          console.log(res,"ressewdd")
+         setDataAll(res)
+
+         
+        }
+      )
 
      
   };
+
+  console.log(allData,"alldat")
 
   return (
     <div style={{ display: "flex" }}>

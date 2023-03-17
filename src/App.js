@@ -17,6 +17,7 @@ import ViewAppointment from "./Pages/ViewAppointment";
 
 import { ProSidebarProvider } from "react-pro-sidebar";
 import AddDoctors from "./Pages/AddDoctors";
+import Schedule from "./Pages/Schedule";
 
 
   
@@ -44,6 +45,7 @@ function App() {
               path="/api/doctordetails/view"
               element={<ViewAppointment />}
             />
+            <Route path="/api/doctordetails/advance" element={<Schedule/>}/>
           </Route>
 
           <Route path="/api/apt" element={<Appoint />} />

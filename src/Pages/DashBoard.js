@@ -20,30 +20,26 @@ function DashBoard() {
   }
 
   useEffect(() => {
-    
     searchDoctors();
   }, [doctorName]);
-  let statusCode;
 
-  const token = localStorage.getItem("token");
   const searchDoctors = async () => {
     await fetch(
-      'http://localhost:4222/api/doctor/doctordetail/getdoctorsname?searchField='+doctorName,
+      `http://localhost:4222/api/doctor/doctordetail/getdoctorsname?searchField=${doctorName}`,
       {
-        method: "POST",
-        
+        method: "GET",
+
         headers: {
           "Content-Type": "application/json",
-          Authorization: token,
         },
       }
     )
       .then((res) => {
-        statusCode = res.status;
         return res.json();
       })
-
-     
+      .then((res) => {
+        setDataAll(res);
+      });
   };
 
   function handleLogOut() {
@@ -107,8 +103,9 @@ function DashBoard() {
           flexDirection: "column",
           background: "blur(10px)",
           backdropFilter: "saturate(130%) blur(10px)",
+          backgroundColor:"#FFFDF1",  
           boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
-          borderRadius: "50px",
+          border:"3px solid #023655"
         }}
       >
         <Typography
@@ -116,7 +113,7 @@ function DashBoard() {
             fontSize: "2.5rem",
             fontWeight: "Bold",
             marginTop: "50px",
-            color: "#013455",
+            color: "#023655",
           }}
         >
           GET AN APPOINTEMNT TO YOUR NEAREST DOCTOR.
@@ -128,47 +125,46 @@ function DashBoard() {
             className={module.inputSearchIcon}
             onChange={handleDoctorChange}
             type="search"
+            value={doctorName}
           />
           <hr />
         </Box>
+
         <div className={module.divSmalls}>
-          {
-            doctorName &&
-              dataAll &&
-              dataAll.map((item) => {
-                return (
-                  <Button
-                    sx={{
-                      fontSize: "1.3rem",
-                      color: "#454949",
-                      paddingBottom: "5px",
-                      animationDelay: "2sec",
-                      margin: "10px",
-                      borderRadius: "10px",
-                      justifyContent: "space-between",
-                      padding: "20px 20px 20px 1rem",
-                      "&:hover": {
-                        background: "blur(10px)",
-                        backdropFilter: "saturate(200%) blur(10px)",
-                        boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
-                        borderRadius: "50px",
-                      },
-                      animationDelay: "250ms",
-                      fontWeight: "bold",
-                      boxShadow: "rgba(149, 157, 165, 0.2) 0px 5px 10px",
-                    }}
-                    onClick={() => doctorDetail(item._id)}
-                    endIcon={<ArrowForwardIosIcon />}
-                  >
-                    
-                    <span className={module.buttonFlex}>
-                      <Avatar sx={{ marginRight: "20px" }} src={item.img} />
-                      {item.doctorName}
-                    </span>
-                  </Button>
-                );
-              })
-          }
+          {doctorName &&
+            dataAll &&
+            dataAll.map((item) => {
+              return (
+                <Button
+                  sx={{
+                    fontSize: "1.3rem",
+                    color: "#454949",
+                    paddingBottom: "5px",
+                    animationDelay: "2sec",
+                    margin: "10px",
+                    borderRadius: "10px",
+                    justifyContent: "space-between",
+                    padding: "20px 20px 20px 1rem",
+                    "&:hover": {
+                      background: "blur(10px)",
+                      backdropFilter: "saturate(200%) blur(10px)",
+                      boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
+                      borderRadius: "50px",
+                    },
+                    animationDelay: "250ms",
+                    fontWeight: "bold",
+                    boxShadow: "rgba(149, 157, 165, 0.2) 0px 5px 10px",
+                  }}
+                  onClick={() => doctorDetail(item._id)}
+                  endIcon={<ArrowForwardIosIcon />}
+                >
+                  <span className={module.buttonFlex}>
+                    <Avatar sx={{ marginRight: "20px" }} src={item.img} />
+                    {item.doctorName}
+                  </span>
+                </Button>
+              );
+            })}
           {doctorName && (
             <Button
               onClick={toAddDoctor}
