@@ -14,6 +14,11 @@ function SideBar({ newLocation }) {
   const { collapseSidebar } = useProSidebar();
 
   const idParam = localStorage.getItem("id");
+
+  function handleOperate(){
+    window.location.href("/api/doctordetails/advance");
+
+  }
   return (
     <Sidebar backgroundColor="#FFFDF1" className={module.sidebarMenuContainer}>
       <Menu>
@@ -67,6 +72,7 @@ function SideBar({ newLocation }) {
             className={({ isActive }) =>
               isActive ? module.activeMenuItemListItem : module.menuItemListItem
             }
+            onClick={handleOperate}
           >
             Schedule Apt
           </NavLink>

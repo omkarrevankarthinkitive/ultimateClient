@@ -10,6 +10,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import fetch from "node-fetch";
 import module from "../CSS/ViewApt.module.css";
 
+
+const getIdOfTheDoc=localStorage.getItem("id")
+
+
 export default function ViewAppointment() {
   const [initial, setInitial] = useState([]);
   const [field, setField] = useState("");
@@ -27,6 +31,13 @@ export default function ViewAppointment() {
       .then((res) => {
         statusCode = res.status;
         return res.json();
+      })
+      .then((res) => {
+        statusCode = res.status;
+    const newArray= res.filter((item)=>{
+    return item.doctorId=== getIdOfTheDoc
+     })
+     setInitial(newArray)
       })
 
  
@@ -113,7 +124,13 @@ export default function ViewAppointment() {
               sx={{ fontWeight: "bold", fontSize: "17px" }}
               align="left"
             >
-              Time
+              start Time
+            </TableCell>
+            <TableCell
+              sx={{ fontWeight: "bold", fontSize: "17px" }}
+              align="left"
+            >
+              End Time
             </TableCell>
             <TableCell
               sx={{ fontWeight: "bold", fontSize: "17px" }}
@@ -125,26 +142,15 @@ export default function ViewAppointment() {
               sx={{ fontWeight: "bold", fontSize: "17px" }}
               align="left"
             >
-              City
-            </TableCell>
-            <TableCell
-              sx={{ fontWeight: "bold", fontSize: "17px" }}
-              align="left"
-            >
-              Room No
-            </TableCell>
-            <TableCell
-              sx={{ fontWeight: "bold", fontSize: "17px" }}
-              align="left"
-            >
-              Diagnosed
-            </TableCell>
-            <TableCell
-              sx={{ fontWeight: "bold", fontSize: "17px" }}
-              align="left"
-            >
               Reason
             </TableCell>
+            <TableCell
+              sx={{ fontWeight: "bold", fontSize: "17px" }}
+              align="left"
+            >
+              DoctorId
+            </TableCell>
+          
           </TableRow>
         </TableHead>
         <TableBody>
@@ -155,16 +161,15 @@ export default function ViewAppointment() {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.firstName}
+                  {row.patientFirstName}
                 </TableCell>
 
-                <TableCell align="left">{row.lastName}</TableCell>
-                <TableCell align="left">{row.aptTime}</TableCell>
-                <TableCell align="left">{row.aptDate}</TableCell>
-                <TableCell align="left">{row.city}</TableCell>
-                <TableCell align="left">{row.room}</TableCell>
-                <TableCell align="left">{row.diagnosis}</TableCell>
+                <TableCell align="left">{row.patientLastName}</TableCell>
+                <TableCell align="left">{row.startTime}</TableCell>
+                <TableCell align="left">{row.endTime}</TableCell>
+                <TableCell align="left">{row.date}</TableCell>
                 <TableCell align="left">{row.reason}</TableCell>
+                <TableCell align="left">{row.doctorId}</TableCell>
               </TableRow>
             ))):[]}
         </TableBody>

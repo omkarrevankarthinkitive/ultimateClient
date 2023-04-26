@@ -1,4 +1,10 @@
-import { Button, Typography, Select, MenuItem, fabClasses } from "@mui/material";
+import {
+  Button,
+  Typography,
+  Select,
+  MenuItem,
+  fabClasses,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,12 +21,10 @@ function Signup() {
     email: "",
     password: "",
     phoneNumber: "",
-    
-  });               
+  });
 
   const [errors, setErrors] = useState({});
 
-  
   const navigate = useNavigate();
 
   const SubmitHandler = (event) => {
@@ -35,7 +39,6 @@ function Signup() {
       email: user.email,
       password: user.password,
       phoneNumber: user.phoneNumber,
-     
     };
     signup(SignUpCredential);
   };
@@ -58,9 +61,7 @@ function Signup() {
         return res.json();
       })
       .then((res) => {
-     
         if (statusCode === 201) {
-
           setTimeout(() => {
             localStorage.setItem("islogin", true);
 
@@ -78,25 +79,29 @@ function Signup() {
     if (!inputs.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputs.email)) {
       errors.email = "Invalid email address";
     }
-    if (!inputs.password || !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}/.test(inputs.password)) {
-      errors.password = "Password should contain one small, big letters, symbols like @ and minimum of 8 characters";
+    if (
+      !inputs.password ||
+      !/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}/.test(
+        inputs.password
+      )
+    ) {
+      errors.password =
+        "Password should contain one small, big letters, symbols like @ and minimum of 8 characters";
     }
-    if (inputs.phoneNumber.length !=10) {
+    if (inputs.phoneNumber.length != 10) {
       errors.phoneNumber = "Number must be 10 numbers long";
     }
     return errors;
   };
-
 
   return (
     <div data-testid="Signup-1" className={module.signupContainer}>
       <Box
         sx={{
           display: "flex",
-          background: "blur(10px)",
-          backdropFilter: "saturate(130%) blur(10px)",
           boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
-          borderRadius: "25px",
+          border: "3px solid #023655",
+          backgroundColor: "#FFFDF1",
         }}
       >
         <Box sx={{ padding: "30px", alignItems: "center", flex: "50%" }}>
@@ -128,7 +133,9 @@ function Signup() {
               flexDirection: "column",
             }}
           >
-            <Typography sx={{ fontSize: "3rem", marginTop: "5rem" }}>
+            <Typography
+              sx={{ fontSize: "3rem", marginTop: "5rem", color: "#08090b" }}
+            >
               Create your Account
             </Typography>
             <Typography
@@ -151,7 +158,7 @@ function Signup() {
                 name="name"
                 onChange={handleChange}
               />
-              <Typography sx={{color:"red"}}>{errors.name}</Typography>
+              <Typography sx={{ color: "red" }}>{errors.name}</Typography>
               <input
                 type="text"
                 className={module.inputStyle}
@@ -159,7 +166,7 @@ function Signup() {
                 name="email"
                 onChange={handleChange}
               />
-              <Typography sx={{color:"red"}}>{errors.email}</Typography>
+              <Typography sx={{ color: "red" }}>{errors.email}</Typography>
 
               <input
                 type="password"
@@ -168,7 +175,7 @@ function Signup() {
                 name="password"
                 onChange={handleChange}
               />
-              <Typography sx={{color:"red"}}>{errors.password}</Typography>
+              <Typography sx={{ color: "red" }}>{errors.password}</Typography>
 
               <input
                 type="number"
@@ -177,20 +184,16 @@ function Signup() {
                 name="phoneNumber"
                 onChange={handleChange}
               />
-              
-              <Typography sx={{color:"red"}}>{errors.phoneNumber}</Typography>
 
-
-          
+              <Typography sx={{ color: "red" }}>
+                {errors.phoneNumber}
+              </Typography>
 
               <Button
                 variant="contained"
-                
-               
                 sx={{
                   backgroundColor: "black",
                   "&:hover": { backgroundColor: "black" },
-                
                 }}
                 onClick={SubmitHandler}
               >
@@ -226,5 +229,3 @@ function Signup() {
 }
 
 export default Signup;
-
-

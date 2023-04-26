@@ -29,7 +29,6 @@ function AddDoctors() {
     qualification: [],
     Gender: "",
     clinicName: "",
-    email: "",
     img: "",
     phoneNumber: "",
     aboutMyself: "",
@@ -37,9 +36,11 @@ function AddDoctors() {
     slotDuration: "",
     workingDays: [],
   });
+  const [errors, setErrors] = useState({});
 
   function handleChange(e) {
     setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    console.log(user);
   }
 
   const cardStyle = {
@@ -61,17 +62,21 @@ function AddDoctors() {
   };
 
   function handleSubmit(e) {
+    const validationErrors = validateInputs(user);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
     const dataSubmit = {
       doctorName: user.doctorName,
       qualification: [user.qualification],
       Gender: user.Gender,
       clinicName: user.clinicName,
-      email: user.email,
       img: user.img,
       phoneNumber: user.phoneNumber,
       aboutMyself: user.aboutMyself,
       workingTime: user.workingTime,
-      SlotDuration: user.SlotDuration,
+      slotDuration: user.slotDuration,
       workingDays: user.workingDays,
     };
 
@@ -108,7 +113,60 @@ function AddDoctors() {
     }));
   };
 
+  const placeholder = "Select Slot";
+  const placeholder2 = "Gender";
+
   console.log(user.workingDays);
+
+  function validateTimeRange(timeRange) {
+    const regex = /^([01]\d|2[0-3]):([0-5]\d)-([01]\d|2[0-3]):([0-5]\d)$/;
+    return regex.test(timeRange);
+  }
+
+  const validateInputs = (inputs) => {
+    let errors = {};
+    if (inputs.doctorName.length < 2 || inputs.doctorName.length > 50) {
+      errors.doctorName = "Name should be between 2 to 50 characters";
+    }
+    if (inputs.clinicName.length < 2 || inputs.clinicName.length > 50) {
+      errors.clinicName = "Clinic Name should be between 2 to 50 characters";
+    }
+    if (inputs.qualification.length < 2 || inputs.qualification.length > 50) {
+      errors.qualification = "Clinic Name should be between 2 to 50 characters";
+    }
+    if (!inputs.Gender) {
+      errors.Gender = "Please select an option from the dropdown";
+    }
+    if (inputs.aboutMyself.length < 10 || inputs.aboutMyself.length > 50) {
+      errors.aboutMyself = "About Doctor should be between 10 to 50 characters";
+    }
+    if (!inputs.img) {
+      errors.img = "Please paste an link here";
+    }
+    if (!inputs.slotDuration) {
+      errors.slotDuration = "Please select an option from the dropdown";
+    }
+    if (!inputs.workingDays) {
+      errors.workingDays = "Please select an options";
+    }
+    if (!/^\d{2}:\d{2}-\d{2}:\d{2}$/.test(inputs.workingTime)) {
+      errors.workingTime = "Invalid time range format. Please use HH:MM-HH:MM";
+    } else {
+      const [startTime, endTime] = inputs.workingTime.split("-");
+      const startHour = parseInt(startTime.split(":")[0], 10);
+      const endHour = parseInt(endTime.split(":")[0], 10);
+
+      if (startHour < 0 || startHour > 23 || endHour < 0 || endHour > 23) {
+        errors.workingTime = "Hours should be between 00 and 23";
+      }
+    }
+
+    if (inputs.phoneNumber.length != 10) {
+      errors.phoneNumber = "Number must be 10 numbers long";
+    }
+    return errors;
+  };
+
   return (
     <Box
       data-testid="addDoc-1"
@@ -134,6 +192,8 @@ function AddDoctors() {
           label="Doctor Name"
           style={inputStyle}
         />
+        <Typography sx={{ color: "red" }}>{errors.doctorName}</Typography>
+
         <TextField
           name="qualification"
           onChange={handleChange}
@@ -142,14 +202,33 @@ function AddDoctors() {
           label="Qualification"
           style={inputStyle}
         />
-        <TextField
-          name="Gender"
-          onChange={handleChange}
+        <Select
+          sx={{
+            "& .MuiSelect-select .notranslate::after": placeholder2
+              ? {
+                  content: `"${placeholder2}"`,
+                  opacity: 0.7,
+                }
+              : {},
+            width: "100%",
+          }}
+          placeholder="time Slots"
+          id="demo-select-small"
           value={user.Gender}
-          fullWidth
-          label="Gender"
-          style={inputStyle}
-        />
+          onChange={handleChange}
+          name="Gender"
+          // sx={{
+          //   height: "40px",
+          //   width: "100%",
+          //   background: "transparent",
+          // }}
+        >
+          <MenuItem value={"male"}>Male</MenuItem>
+          <MenuItem value={"female"}>Female</MenuItem>
+          <MenuItem value={"other"}>Other</MenuItem>
+        </Select>
+        <Typography sx={{ color: "red" }}>{errors.Gender}</Typography>
+
         <TextField
           name="clinicName"
           onChange={handleChange}
@@ -158,16 +237,8 @@ function AddDoctors() {
           label="Clinic Name"
           style={inputStyle}
         />
+        <Typography sx={{ color: "red" }}>{errors.clinicName}</Typography>
 
-        <TextField
-          name="email"
-          onChange={handleChange}
-          value={user.email}
-          fullWidth
-          label="Email"
-          type="text"
-          style={inputStyle}
-        />
         <TextField
           name="phoneNumber"
           onChange={handleChange}
@@ -177,6 +248,8 @@ function AddDoctors() {
           type="text"
           style={inputStyle}
         />
+        <Typography sx={{ color: "red" }}>{errors.phoneNumber}</Typography>
+
         <TextField
           name="aboutMyself"
           onChange={handleChange}
@@ -186,6 +259,8 @@ function AddDoctors() {
           type="text"
           style={inputStyle}
         />
+        <Typography sx={{ color: "red" }}>{errors.aboutMyself}</Typography>
+
         <TextField
           name="img"
           onChange={handleChange}
@@ -195,28 +270,47 @@ function AddDoctors() {
           type="text"
           style={inputStyle}
         />
-        <TextField fullWidth label="Time Range" placeholder="hh:mm-hh:mm" />
-        <Box></Box>
-        <InputLabel>Select Slot</InputLabel>
+        <Typography sx={{ color: "red" }}>{errors.img}</Typography>
+
+        <TextField
+          fullWidth
+          label="Time Range"
+          placeholder="hh:mm-hh:mm"
+          onChange={handleChange}
+          type="text"
+          value={user.workingTime}
+          name="workingTime"
+        />
+        <Typography sx={{ color: "red" }}>{errors.workingTime}</Typography>
+
         <Select
-        label="Select Slots"
-          labelId="demo-select-small"
-           placeholder="time Slots"
+          sx={{
+            "& .MuiSelect-select .notranslate::after": placeholder
+              ? {
+                  content: `"${placeholder}"`,
+                  opacity: 0.7,
+                }
+              : {},
+            width: "100%",
+          }}
+          placeholder="time Slots"
           id="demo-select-small"
           value={user.slotDuration}
           onChange={handleChange}
           name="slotDuration"
-          sx={{
-            height: "40px",
-            width: "100%",
-            background:"transparent"
-          }}
+          // sx={{
+          //   height: "40px",
+          //   width: "100%",
+          //   background: "transparent",
+          // }}
         >
-          <MenuItem value={15}>15</MenuItem>
-          <MenuItem value={30}>30</MenuItem>
-          <MenuItem value={45}>45</MenuItem>
-          <MenuItem value={60}>60</MenuItem>
+          <MenuItem value={"15"}>15</MenuItem>
+          <MenuItem value={"30"}>30</MenuItem>
+          <MenuItem value={"45"}>45</MenuItem>
+          <MenuItem value={"60"}>60</MenuItem>
         </Select>
+        <Typography sx={{ color: "red" }}>{errors.slotDuration}</Typography>
+
         <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
           <InputLabel id="working-days-label">Select working days:</InputLabel>
           <Select
@@ -233,6 +327,7 @@ function AddDoctors() {
               </MenuItem>
             ))}
           </Select>
+          <Typography sx={{ color: "red" }}>{errors.workingDays}</Typography>
         </Box>
 
         <Button

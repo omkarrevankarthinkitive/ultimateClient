@@ -90,10 +90,10 @@ function Login() {
       <Box
         sx={{
           display: "flex",
-          background: "blur(10px)",
-          backdropFilter: "saturate(130%) blur(10px)",
+          border:"3px solid #023655",
+          backgroundColor:"#FFFDF1",  
+          
           boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
-          borderRadius: "25px",
         }}
       >
         <Box sx={{ padding: "30px", alignItems: "center", flex: "50%" }}>
@@ -125,7 +125,7 @@ function Login() {
               flexDirection: "column",
             }}
           >
-            <Typography sx={{ fontSize: "3rem", marginTop: "3rem" }}>
+            <Typography sx={{ fontSize: "3rem", marginTop: "3rem",color:"#08090b" }}>
               Welcome Back
             </Typography>
             <Typography
@@ -194,8 +194,6 @@ function Login() {
             alt="This is an home Image"
             className={module.imgHeight}
           />
-
-          
         </Box>
       </Box>
     </div>
